@@ -37,7 +37,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
@@ -97,6 +97,7 @@
       <workItem from="1651203192556" duration="2794000" />
       <workItem from="1651215357269" duration="7982000" />
       <workItem from="1651805466542" duration="321000" />
+      <workItem from="1651806003068" duration="10176000" />
     </task>
     <servers />
   </component>

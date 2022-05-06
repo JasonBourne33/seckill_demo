@@ -8,7 +8,7 @@ import com.example.seckilldemo.vo.GoodsVo;
 import com.example.seckilldemo.vo.RespBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.omg.CORBA.TIMEOUT;
+//import org.omg.CORBA.TIMEOUT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;

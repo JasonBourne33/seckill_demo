@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TUserServiceImpl extends ServiceImpl<TUserMapper, TUser> implements ITUserService {
 
 
-    @Autowired
+    @Autowired(required = false)
     private TUserMapper tUserMapper;
 
     @Autowired
@@ -55,13 +55,18 @@ public class TUserServiceImpl extends ServiceImpl<TUserMapper, TUser> implements
 //        }
 
         TUser user = tUserMapper.selectById(mobile);
+        System.out.println("user=== "+user);
         if (user == null) {
             throw new GlobalException(RespBeanEnum.LOGIN_ERROR);
         }
 //        System.out.println(MD5Util.formPassToDBPass(password, user.getSalt()));
         //判断密码是否正确
         if (!MD5Util.formPassToDBPass(password, user.getSalt()).equals(user.getPassword())) {
+//        if (!MD5Util.inputPassToDBPass(password, user.getSalt()).equals(user.getPassword())) {
+            System.out.println("MD5Util.formPassToDBPass(password, user.getSalt())=== "+MD5Util.formPassToDBPass(password, user.getSalt()));
+            System.out.println("user.getPassword()=== "+user.getPassword());
             throw new GlobalException(RespBeanEnum.LOGIN_ERROR);
+
         }
         //生成Cookie
         String userTicket = UUIDUtil.uuid();

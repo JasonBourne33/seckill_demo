@@ -153,8 +153,40 @@ public class SeKillController implements InitializingBean {
     }
 
     /**
-     * 秒杀功能
+     * 秒杀功能-废弃
      *
+     * @param model
+     * @param user
+     * @param goodsId
+     * @return java.lang.String
+     * @author LC
+     * @operation add
+     * @date 11:36 上午 2022/3/4
+     **/
+    @ApiOperation("秒杀功能-废弃")
+    @RequestMapping(value = "/doSeckill2", method = RequestMethod.POST)
+    public String doSecKill2(Model model, TUser user, Long goodsId) {
+        model.addAttribute("user", user);
+        GoodsVo goodsVo = itGoodsService.findGoodsVobyGoodsId(goodsId);
+        if (goodsVo.getStockCount() < 1) {
+            model.addAttribute("errmsg", RespBeanEnum.EMPTY_STOCK.getMessage());
+            return "secKillFail";
+        }
+        //判断是否重复抢购
+        TSeckillOrder seckillOrder = itSeckillOrderService.getOne(new QueryWrapper<TSeckillOrder>().eq("user_id", user.getId()).eq("goods_id", goodsId));
+        if (seckillOrder != null) {
+            model.addAttribute("errmsg", RespBeanEnum.REPEATE_ERROR.getMessage());
+            return "secKillFail";
+        }
+        TOrder tOrder = orderService.secKill(user, goodsVo);
+        model.addAttribute("order", tOrder);
+        model.addAttribute("goods", goodsVo);
+        return "orderDetail";
+    }
+
+    /**
+     * 秒杀功能
+     *  window优化前qps：797.1
      * @param user
      * @param goodsId
      * @return java.lang.String
@@ -195,7 +227,7 @@ public class SeKillController implements InitializingBean {
         }
         SeckillMessage seckillMessag = new SeckillMessage(user, goodsId);
         mqSender.sendSeckillMessage(JsonUtil.object2JsonStr(seckillMessag));
-        return RespBean.success(0);
+//        return RespBean.success(0);
 
 
 
@@ -203,7 +235,6 @@ public class SeKillController implements InitializingBean {
 
 
 
-        /*
 //        model.addAttribute("user", user);
         GoodsVo goodsVo = itGoodsService.findGoodsVobyGoodsId(goodsId);
         if (goodsVo.getStockCount() < 1) {
@@ -222,40 +253,7 @@ public class SeKillController implements InitializingBean {
 //        model.addAttribute("goods", goodsVo);
         return RespBean.success(tOrder);
 
-         */
 
-    }
-
-    /**
-     * 秒杀功能-废弃
-     *
-     * @param model
-     * @param user
-     * @param goodsId
-     * @return java.lang.String
-     * @author LC
-     * @operation add
-     * @date 11:36 上午 2022/3/4
-     **/
-    @ApiOperation("秒杀功能-废弃")
-    @RequestMapping(value = "/doSeckill2", method = RequestMethod.POST)
-    public String doSecKill2(Model model, TUser user, Long goodsId) {
-        model.addAttribute("user", user);
-        GoodsVo goodsVo = itGoodsService.findGoodsVobyGoodsId(goodsId);
-        if (goodsVo.getStockCount() < 1) {
-            model.addAttribute("errmsg", RespBeanEnum.EMPTY_STOCK.getMessage());
-            return "secKillFail";
-        }
-        //判断是否重复抢购
-        TSeckillOrder seckillOrder = itSeckillOrderService.getOne(new QueryWrapper<TSeckillOrder>().eq("user_id", user.getId()).eq("goods_id", goodsId));
-        if (seckillOrder != null) {
-            model.addAttribute("errmsg", RespBeanEnum.REPEATE_ERROR.getMessage());
-            return "secKillFail";
-        }
-        TOrder tOrder = orderService.secKill(user, goodsVo);
-        model.addAttribute("order", tOrder);
-        model.addAttribute("goods", goodsVo);
-        return "orderDetail";
     }
 
     /**

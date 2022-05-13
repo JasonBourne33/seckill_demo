@@ -124,6 +124,7 @@ public class GoodsController {
         if (!StringUtils.isEmpty(html)) {
             return html;
         }
+        System.out.println("toList user=== "+user);
 
         model.addAttribute("user", user);
         model.addAttribute("goodsList", itGoodsService.findGoodsVo());

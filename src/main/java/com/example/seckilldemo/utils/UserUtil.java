@@ -111,8 +111,8 @@ public class UserUtil {
     }
 
     private static Connection getConn() throws Exception {
-//        String url = "jdbc:mysql://localhost:3306/seckill?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
-        String url = "jdbc:mysql://192.168.174.130:3306/seckill?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
+        String url = "jdbc:mysql://localhost:3306/seckill?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
+//        String url = "jdbc:mysql://192.168.174.130:3306/seckill?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
         String username = "root";
         String password = "123";
         String driver = "com.mysql.cj.jdbc.Driver";
@@ -121,7 +121,7 @@ public class UserUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        createUser(2);
-//        createUser(5000);
+//        createUser(2);
+        createUser(5000);
     }
 }
